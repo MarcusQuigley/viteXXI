@@ -25,41 +25,41 @@ class App extends Component {
 
   constructor(props) {
     super(props);
-  
-  this.onDismiss = this.onDismiss.bind(this)
 
-  this.state = {
-    list,
-  };
+    this.onDismiss = this.onDismiss.bind(this)
 
- }
- 
+    this.state = {
+      list,
+    };
 
- onDismiss(id){
-  const updatedList = this.state.list.filter( item => item.objectID != id )
-  this.setState({list: updatedList})
-  console.log(updatedList)
- }
+  }
 
- 
+
+  onDismiss(id) {
+    const updatedList = this.state.list.filter(item => item.objectID != id)
+    this.setState({ list: updatedList })
+    console.log(updatedList)
+  }
+
+
   render() {
     return (
       <div className="App">
-      {this.state.list.map(item =>
-        <div key={item.objectID}>
-          <span>
-            <a href={item.url}>{item.title}</a>
-          </span>
-          &nbsp;
-          <span>{item.author}</span>
-          &nbsp;
-         <button type='button' 
-                 onClick={()=>this.onDismiss(item.objectID)}
-         >
-          Dismiss
-         </button>
-        </div>
-      )}
+        {this.state.list.map(item =>
+          <div key={item.objectID}>
+            <span>
+              <a href={item.url}>{item.title}</a>
+            </span>
+            &nbsp;
+            <span>{item.author}</span>
+            &nbsp;
+            <button type='button'
+              onClick={() => this.onDismiss(item.objectID)}
+            >
+              Dismiss
+            </button>
+          </div>
+        )}
       </div>
     );
   }
@@ -67,4 +67,3 @@ class App extends Component {
 
 export default App;
 
- 
