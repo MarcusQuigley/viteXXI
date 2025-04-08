@@ -53,13 +53,14 @@ class App extends Component {
   render() {
     const {searchTerm, list} = this.state;
     return (
-      <div className="App">
+      <div className="page">
+        <div className='interactions'>
         <Search value={searchTerm}
                 onChanged={this.onSearchChanged}
         >
           Search
         </Search>
-       
+        </div>
         <Booklist list={list}
                   searchTerm={searchTerm}
                   onDismiss={this.onDismiss}
