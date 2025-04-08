@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import './App.css'
+import Search from  './Search.jsx'
+import Booklist from './BooksList.jsx'
 
 const list = [
   {
@@ -20,12 +22,6 @@ const list = [
   },
 ];
 
-const isSearched = (searchitem) => (item) =>
-{
-  console.log(searchitem, item.objectID)
-  return !searchitem || item.title.toLowerCase().includes(searchitem.toLowerCase())
-}
-
 class App extends Component {
 
   constructor(props) {
@@ -36,15 +32,16 @@ class App extends Component {
       list,
       searchTerm: '',
     };
-    this.onDismiss = this.onDismiss.bind(this)
+
     this.onSearchChanged = this.onSearchChanged.bind(this)
-  }
+    this.onDismiss = this.onDismiss.bind(this)
+  } 
 
 
   onDismiss(id) {
-    const updatedList = this.state.list.filter(item => item.objectID != id)
+    const updatedList = this.state.list.filter(item => item.objectID !== id)
     this.setState({ list: updatedList })
-    console.log(updatedList)
+    //console.log(updatedList)
   }
 
   onSearchChanged(event){
@@ -53,27 +50,17 @@ class App extends Component {
 
 
   render() {
+    const {searchTerm, list} = this.state;
     return (
       <div className="App">
-        <form>
-          <input type='text'
-                 onChange={this.onSearchChanged}/>
-        </form>
-        {this.state.list.filter(isSearched(this.state.searchTerm)).map(item =>
-          <div key={item.objectID}>
-            <span>
-              <a href={item.url}>{item.title}</a>
-            </span>
-            &nbsp;
-            <span>{item.author}</span>
-            &nbsp;
-            <button type='button'
-              onClick={() => this.onDismiss(item.objectID)}
-            >
-              Dismiss
-            </button>
-          </div>
-        )}
+        <Search value={searchTerm}
+                onChanged={this.onSearchChanged} />
+       
+        <Booklist list={list}
+                  searchTerm={searchTerm}
+                  onDismiss={this.onDismiss}
+                  />
+        
       </div>
     );
   }
