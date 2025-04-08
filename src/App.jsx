@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import './App.css'
+import Search from  './Search.jsx'
+import Booklist from './BooksList.jsx'
+import MyButton from './components/MyButton.jsx'
 
 const list = [
   {
@@ -20,58 +23,49 @@ const list = [
   },
 ];
 
-
-const isSearched = (st)=> (item) =>
-  {
-  return item.title.toLowerCase().includes(st.toLowerCase());
-  }
-
 class App extends Component {
 
   constructor(props) {
     super(props);
 
-    this.onDismiss = this.onDismiss.bind(this)
-    this.onSearchChange = this.onSearchChange.bind(this)
+    
     this.state = {
       list,
       searchTerm: '',
     };
 
-  }
+    this.onSearchChanged = this.onSearchChanged.bind(this)
+    this.onDismiss = this.onDismiss.bind(this)
+  } 
 
 
   onDismiss(id) {
-    const updatedList = this.state.list.filter(item => item.objectID != id)
+    const updatedList = this.state.list.filter(item => item.objectID !== id)
     this.setState({ list: updatedList })
+    //console.log(updatedList)
   }
- 
-  onSearchChange(event){
+
+  onSearchChanged(event){
     this.setState({searchTerm: event.target.value})
   }
 
+
   render() {
+    const {searchTerm, list} = this.state;
     return (
-      <div className="App">
-        <form>
-          <input type='text'
-                 onChange={this.onSearchChange} />
-        </form>
-        {this.state.list.filter(isSearched(this.state.searchTerm)).map(item =>
-          <div key={item.objectID}>
-            <span>
-              <a href={item.url}>{item.title}</a>
-            </span>
-            &nbsp;
-            <span>{item.author}</span>
-            &nbsp;
-            <button type='button'
-              onClick={() => this.onDismiss(item.objectID)}
-            >
-              Dismiss
-            </button>
-          </div>
-        )}
+      <div className="page">
+        <div className='interactions'>
+        <Search value={searchTerm}
+                onChanged={this.onSearchChanged}
+        >
+          Search
+        </Search>
+        </div>
+        <Booklist list={list}
+                  searchTerm={searchTerm}
+                  onDismiss={this.onDismiss}
+                  />
+        
       </div>
     );
   }
