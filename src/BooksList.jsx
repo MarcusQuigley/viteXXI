@@ -1,3 +1,5 @@
+import MyButton from "./components/MyButton";
+
 function BooksList({list,  searchTerm, onDismiss}){
 
     const isSearched = (searchTerm) => (item) =>{
@@ -15,11 +17,11 @@ function BooksList({list,  searchTerm, onDismiss}){
                     <span>{item.num_comments}</span>
                     <span>{item.points}</span>
                     &nbsp;
-                    <button type='button'
-                            onClick={()=>onDismiss(item.objectID)}
+                    <MyButton 
+                            _onClick={()=>onDismiss(item.objectID)}
                     >
                         Dismiss
-                    </button>
+                    </MyButton>
                 </div>
             )}
             </div>
