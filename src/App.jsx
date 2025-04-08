@@ -54,7 +54,10 @@ class App extends Component {
     return (
       <div className="App">
         <Search value={searchTerm}
-                onChanged={this.onSearchChanged} />
+                onChanged={this.onSearchChanged}
+        >
+          Search
+        </Search>
        
         <Booklist list={list}
                   searchTerm={searchTerm}

@@ -1,17 +1,10 @@
-import React, { Component } from "react";
+function BooksList({list,  searchTerm, onDismiss}){
 
-const isSearched = (searchitem) => (item) =>
-    {
-      //console.log(searchitem, item.objectID)
-      return !searchitem || item.title.toLowerCase().includes(searchitem.toLowerCase())
+    const isSearched = (searchTerm) => (item) =>{
+         return !searchTerm || item.title.toLowerCase().includes(searchTerm.toLowerCase());
     }
-
-class BooksList extends Component{
-
-    render(){
-        const {list,  searchTerm, onDismiss} = this.props;
-        return(
-            <div>
+    return(
+        <div>
             {list.filter(isSearched(searchTerm)).map(item=>
                 <div key={item.objectID}>
                     <span>
@@ -30,7 +23,7 @@ class BooksList extends Component{
                 </div>
             )}
             </div>
-        );
-    }
+    );
 }
+
 export default BooksList
